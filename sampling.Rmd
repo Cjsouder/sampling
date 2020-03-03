@@ -1,0 +1,28 @@
+---
+title: "sampling"
+author: "Chase Souder"
+date: "3/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(googlesheets4)
+library(fs)
+library(tidyverse)
+library(dplyr)
+```
+
+```{r, echo = FALSE}
+
+sampling_sheet <- read_sheet("https://docs.google.com/spreadsheets/d/14HmwN2cEVAJHupuehCuLdwG9BXtR3COrxDgaaylLhkA/edit#gid=0", range = "A1:E52")
+
+sampling_sheet %>%
+  arrange(desc(Red)) %>%
+  slice(1) %>%
+  pull(Partners)
+
+ggplot(sampling_sheet, aes(Red)) +
+  geom_histogram(bins = 20,
+                 binwidth = .5)
+```
